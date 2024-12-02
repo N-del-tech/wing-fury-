@@ -1,0 +1,25 @@
+using UnityEngine;
+
+public class UpDownMovement : MonoBehaviour
+{
+    // Variables to control movement
+    public float speed = 2.0f;       // Speed of movement
+    public float height = 1.0f;     // Maximum height of the oscillation
+
+    private Vector3 startPosition;  // Initial position of the object
+
+    void Start()
+    {
+        // Store the starting position of the object
+        startPosition = transform.position;
+    }
+
+    void Update()
+    {
+        // Calculate new Y position using a sine wave
+        float newY = startPosition.y + Mathf.Sin(Time.time * speed) * height;
+
+        // Update the object's position
+        transform.position = new Vector3(startPosition.x, newY, startPosition.z);
+    }
+}

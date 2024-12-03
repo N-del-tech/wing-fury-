@@ -2,24 +2,11 @@ using UnityEngine;
 
 public class UpDownMovement : MonoBehaviour
 {
-    // Variables to control movement
-    public float speed = 2.0f;       // Speed of movement
-    public float height = 1.0f;     // Maximum height of the oscillation
+    public float jumpforce = 5f; // how much force is applied when jumping 
+    private Rigidbody2D rb;
 
-    private Vector3 startPosition;  // Initial position of the object
-
-    void Start()
+    void start()
     {
-        // Store the starting position of the object
-        startPosition = transform.position;
+        rb = Getcomponent<Rigidbody2D>();
     }
-
-    void Update()
-    {
-        // Calculate new Y position using a sine wave
-        float newY = startPosition.y + Mathf.Sin(Time.time * speed) * height;
-
-        // Update the object's position
-        transform.position = new Vector3(startPosition.x, newY, startPosition.z);
-    }
-}
+    void update()

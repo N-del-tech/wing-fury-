@@ -10,3 +10,22 @@ public class UpDownMovement : MonoBehaviour
         rb = Getcomponent<Rigidbody2D>();
     }
     void update()
+    {
+      // check for input (spacebar or mouse click)
+      if (input.Getkeydown(keycode.space) || input.GetMousebuttonDown(0))
+      {
+          jump();
+      }
+   }
+   void jump()
+   {
+       // Apply an upward velocity to the bird 
+       rb.velocity = vector2.up * jumpforce;
+   }
+   void oncollisionEnter2D(Collision2D Collision2d collison)
+   {
+        //handle collision with pipes or ground
+        debug. log("Game Over");
+        Time.timescale = 0; // stop the game 
+   }
+}

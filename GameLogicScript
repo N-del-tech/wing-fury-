@@ -1,0 +1,36 @@
+using UnityEngine;
+using TMPro; 
+
+public class GameLogic : MonoBehaviour
+{
+    public int eggShardCount = 0; // Number of egg shards collected
+    public int eggShardGoal = 10; // Number of shards needed to win
+    public TextMeshProUGUI EggShardCounter; // Assign your UI Text for egg shard counter
+
+    void Start()
+    {
+        UpdateEggShardCounter();
+    }
+
+    public void AddEggShard()
+    {
+        eggShardCount++;
+        UpdateEggShardCounter();
+
+        if (eggShardCount >= eggShardGoal)
+        {
+            WinGame();
+        }
+    }
+
+    void UpdateEggShardCounter()
+    {
+        EggShardCounter.text = $"Egg Shards: {eggShardCount}/{eggShardGoal}";
+    }
+
+    void WinGame()
+    {
+        Time.timeScale = 0; // Pause the game
+        Debug.Log("You Win!"); // Replace with a proper win screen
+    }
+}

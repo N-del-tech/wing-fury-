@@ -1,0 +1,60 @@
+using System.IO.Pipes;
+using UnityEngine;
+
+public class PoleSpawnScript : MonoBehaviour
+{
+    public GameObject pole;
+    public float spawnRate = 4;
+    private float timer = 0;
+    public float heightOffset = 2;
+    public GameObject eggShardPrefab; 
+
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Start()
+    {
+        spawnPole();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+        if (timer < spawnRate) 
+        {
+            timer = timer + Time.deltaTime;
+        }
+        else
+        {
+            spawnPole();
+            timer = 0;
+        }
+
+    }
+
+
+    void spawnPole()
+    {
+        float lowestPoint = transform.position.y - heightOffset;
+        float highestPoint = transform.position.y + heightOffset;
+
+        
+        GameObject newPole = Instantiate(pole, new Vector3(transform.position.x, Random.Range(lowestPoint, highestPoint), 0), transform.rotation);
+
+        
+        if (Random.value < 0.5f) 
+        {
+            
+            Transform spawnPoint = newPole.transform.Find("EggShardSpawnPoint");
+
+            
+            Vector3 spawnPosition = spawnPoint != null ? spawnPoint.position : new Vector3(newPole.transform.position.x, Random.Range(lowestPoint, highestPoint), 0);
+
+            // Instantiate the egg shard as a child of the pole
+            GameObject eggShard = Instantiate(eggShardPrefab, spawnPosition, Quaternion.identity);
+            eggShard.transform.parent = newPole.transform; // To attach the egg shard to the pole
+        }
+    }
+
+
+
+}
